@@ -1,0 +1,137 @@
+/* ── Pebble Global Styles ────────────────────────────── */
+@import '@fontsource/fraunces/300.css';
+@import '@fontsource/fraunces/500.css';
+@import '@fontsource/fraunces/700.css';
+@import '@fontsource/dm-sans/300.css';
+@import '@fontsource/dm-sans/400.css';
+@import '@fontsource/dm-sans/500.css';
+@import '@fontsource/dm-sans/600.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Brand ── */
+  --color-sage:         #7c9e8f;
+  --color-sage-light:   #e8f0ec;
+  --color-sage-dark:    #4d7465;
+
+  /* ── Neutral ── */
+  --color-stone-50:     #fafaf9;
+  --color-stone-100:    #f5f5f4;
+  --color-stone-200:    #e7e5e4;
+  --color-stone-300:    #d6d3d1;
+  --color-stone-400:    #a8a29e;
+  --color-stone-500:    #78716c;
+  --color-stone-700:    #44403c;
+  --color-stone-900:    #1c1917;
+
+  /* ── Category Semantic ── */
+  --color-needs:        #f59e0b;
+  --color-needs-light:  #fef3c7;
+  --color-needs-text:   #92400e;
+  --color-wants:        #a78bfa;
+  --color-wants-light:  #ede9fe;
+  --color-wants-text:   #5b21b6;
+  --color-savings:      #34d399;
+  --color-savings-light:#d1fae5;
+  --color-savings-text: #065f46;
+
+  /* ── Status ── */
+  --color-amber:        #d97706;
+  --color-amber-light:  #fef3c7;
+  --color-rose:         #e11d48;
+  --color-rose-light:   #ffe4e6;
+  --color-sky:          #0ea5e9;
+  --color-sky-light:    #e0f2fe;
+  --color-teal:         #0d9488;
+  --color-violet:       #7c3aed;
+
+  /* ── Typography ── */
+  --font-display:       'Fraunces', Georgia, serif;
+  --font-body:          'DM Sans', system-ui, sans-serif;
+
+  /* ── Spacing ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Radius ── */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-xl:   32px;
+  --radius-full: 100px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.10);
+  --shadow-fab: 0 4px 20px rgba(124,158,143,.5);
+
+  /* ── Motion ── */
+  --motion-instant:    100ms ease;
+  --motion-fast:       200ms ease;
+  --motion-default:    300ms ease;
+  --motion-deliberate: 350ms cubic-bezier(.34,1.56,.64,1);
+  --motion-slow:       700ms cubic-bezier(.34,1.56,.64,1);
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-stone-100);
+  color: var(--color-stone-900);
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input, select, textarea {
+  font-family: var(--font-body);
+}
+
+/* ── Page entrance animation ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fadeUp var(--motion-default) ease both;
+}

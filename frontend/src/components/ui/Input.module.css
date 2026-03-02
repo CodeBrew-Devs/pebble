@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-stone-500);
+  letter-spacing: 0.03em;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-stone-200);
+  background: var(--color-stone-50);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-stone-900);
+  outline: none;
+  transition: border-color var(--motion-fast);
+}
+
+.input::placeholder {
+  color: var(--color-stone-400);
+}
+
+.input:focus {
+  border-color: var(--color-sage);
+}
+
+.input.error {
+  border-color: var(--color-rose);
+}
+
+.errorMsg {
+  font-size: 0.75rem;
+  color: var(--color-rose);
+}

@@ -1,0 +1,269 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.greeting {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.greeting span {
+  color: var(--color-sage-dark);
+}
+
+.month {
+  font-size: 0.8rem;
+  color: var(--color-stone-500);
+  margin-top: 2px;
+}
+
+/* ── Hero card ── */
+.heroCard {
+  background: var(--color-stone-900);
+  color: #fff;
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroCard::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(124,158,143,.15);
+  pointer-events: none;
+}
+
+.heroCard::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: 40px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(124,158,143,.08);
+  pointer-events: none;
+}
+
+.heroLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.heroAmount {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.heroDecimal {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.heroSub {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,.55);
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(52,211,153,.2);
+  color: #6ee7b7;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+/* ── Card ── */
+.card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+}
+
+/* ── Budget split ── */
+.splitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.splitTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.splitTotal {
+  font-size: 0.8rem;
+  color: var(--color-stone-500);
+}
+
+.splitBar {
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-stone-100);
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+  margin-bottom: 1rem;
+}
+
+.splitNeeds, .splitWants, .splitSavings {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--motion-slow);
+}
+
+.splitNeeds   { background: var(--color-needs); }
+.splitWants   { background: var(--color-wants); }
+.splitSavings { background: var(--color-savings); }
+
+.splitLegend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendVal {
+  font-weight: 600;
+}
+
+.legendLabel {
+  color: var(--color-stone-500);
+}
+
+/* ── Section title ── */
+.sectionTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-stone-500);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: var(--space-2);
+}
+
+/* ── Goals scroll ── */
+.goalsScroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin: 0 -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.goalsScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.goalCard {
+  min-width: 180px;
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.goalIcon   { font-size: 1.4rem; display: block; margin-bottom: 0.5rem; }
+.goalLabel  { font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,.7); letter-spacing: .04em; text-transform: uppercase; display: block; }
+.goalAmount { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: #fff; display: block; margin: 0.15rem 0; }
+.goalTarget { font-size: 0.75rem; color: rgba(255,255,255,.55); display: block; margin-bottom: 0.75rem; }
+
+.goalBar {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,.2);
+  overflow: hidden;
+}
+
+.goalFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,.8);
+  transition: width var(--motion-slow);
+}
+
+.goalPct { font-size: 0.7rem; color: rgba(255,255,255,.6); display: block; margin-top: 0.4rem; }
+
+/* ── Category rows ── */
+.catRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-stone-100);
+}
+
+.catRow:last-child {
+  border-bottom: none;
+}
+
+.catIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.catInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.catName { font-size: 0.9rem; font-weight: 500; }
+.catSub  { font-size: 0.75rem; color: var(--color-stone-500); }
+
+.catAmount {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.catVal { font-size: 0.9rem; font-weight: 600; }
+.catPct { font-size: 0.7rem; color: var(--color-stone-500); }

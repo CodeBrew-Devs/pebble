@@ -1,0 +1,70 @@
+.page { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.header { display: flex; justify-content: space-between; align-items: center; }
+.title  { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; }
+.month  { font-size: 0.8rem; color: var(--color-stone-500); margin-top: 2px; }
+
+.searchWrapper { position: relative; }
+.searchIcon    { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--color-stone-400); pointer-events: none; }
+.searchInput   { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-stone-200); background: var(--color-stone-50); font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: border-color var(--motion-fast); }
+.searchInput:focus { border-color: var(--color-sage); }
+
+.filters { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; }
+.filters::-webkit-scrollbar { display: none; }
+
+.chip       { padding: 0.4rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 500; border: 1.5px solid var(--color-stone-200); background: #fff; cursor: pointer; white-space: nowrap; transition: all var(--motion-instant); color: var(--color-stone-700); }
+.chip:hover { border-color: var(--color-stone-400); }
+.chipActive { background: var(--color-stone-900); color: #fff; border-color: var(--color-stone-900); }
+
+.dateLabel { font-size: 0.75rem; font-weight: 600; color: var(--color-stone-400); letter-spacing: 0.05em; text-transform: uppercase; margin: 0.5rem 0 0.4rem; }
+
+.txList { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.txItem { background: #fff; border-radius: var(--radius-md); padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; transition: box-shadow var(--motion-fast); }
+.txItem:hover { box-shadow: var(--shadow-md); }
+
+.txIcon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.txInfo { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.txName { font-size: 0.9rem; font-weight: 500; }
+.txMeta { display: flex; align-items: center; gap: 0.4rem; }
+
+.incomeLabel { font-size: 0.75rem; font-weight: 600; color: var(--color-sage-dark); }
+
+.txRight   { text-align: right; display: flex; flex-direction: column; gap: 2px; }
+.txAmount  { font-size: 0.95rem; font-weight: 600; }
+.txIncome  { color: var(--color-sage-dark); }
+.txDate    { font-size: 0.72rem; color: var(--color-stone-400); }
+
+/* ── FAB ── */
+.fab { position: fixed; bottom: 5rem; right: 1rem; z-index: 90; width: 52px; height: 52px; border-radius: 50%; background: var(--color-sage); color: #fff; border: none; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-fab); transition: all var(--motion-fast); }
+.fab:hover { background: var(--color-sage-dark); transform: scale(1.05); }
+
+@media (min-width: 768px) {
+  .fab { bottom: 1.5rem; right: 2rem; }
+}
+
+/* ── Modal ── */
+.modalOverlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; animation: fadeIn var(--motion-fast) ease; }
+.modalSheet   { background: #fff; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 1.5rem; width: 100%; max-width: 520px; animation: slideUp var(--motion-deliberate); }
+.modalHandle  { width: 36px; height: 4px; border-radius: var(--radius-full); background: var(--color-stone-200); margin: 0 auto 1.25rem; }
+.modalTitle   { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; margin-bottom: 1.25rem; }
+.modalForm    { display: flex; flex-direction: column; gap: 1rem; }
+.modalActions { display: flex; gap: 0.75rem; }
+.modalCancel  { flex: 1; padding: 0.75rem; border-radius: var(--radius-full); border: 1.5px solid var(--color-stone-300); background: transparent; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; color: var(--color-stone-700); transition: background var(--motion-fast); }
+.modalCancel:hover { background: var(--color-stone-100); }
+.modalAdd     { flex: 1; padding: 0.75rem; border-radius: var(--radius-full); border: none; background: var(--color-sage); color: #fff; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background var(--motion-fast); }
+.modalAdd:hover { background: var(--color-sage-dark); }
+
+.formGroup { display: flex; flex-direction: column; gap: var(--space-1); }
+.formLabel { font-size: 0.8rem; font-weight: 500; color: var(--color-stone-500); letter-spacing: 0.03em; }
+.formInput { padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-stone-200); background: var(--color-stone-50); font-family: var(--font-body); font-size: 0.95rem; color: var(--color-stone-900); outline: none; transition: border-color var(--motion-fast); }
+.formInput:focus { border-color: var(--color-sage); }
+.formRow { display: flex; gap: 0.75rem; }
+.formRow > * { flex: 1; }
+
+.catButtons { display: flex; gap: 0.5rem; }
+.catBtn { flex: 1; padding: 0.6rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-stone-200); background: #fff; cursor: pointer; font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; transition: all var(--motion-fast); }
+.catBtn:hover { border-color: var(--color-stone-400); }
+.needs   { }
+.wants   { }
+.savings { }
