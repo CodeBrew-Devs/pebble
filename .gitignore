@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 # Rust
 backend/target/
+
+# Claude Code — personal agent context (not committed to repo)
+CLAUDE.md
