@@ -73,6 +73,7 @@ Database migrations are applied automatically on startup. The server listens on 
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
+| `GET` | `/health` | — | Health check (DB ping) |
 | `POST` | `/auth/signup` | — | Create account |
 | `POST` | `/auth/login` | — | Log in |
 | `GET` | `/user` | Bearer token | Get current user |

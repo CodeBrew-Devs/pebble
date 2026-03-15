@@ -46,6 +46,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .allow_headers(Any);
 
     let app = Router::new()
+        .route("/health", get(handlers::health))
         .route("/auth/signup", post(handlers::auth::signup))
         .route("/auth/login", post(handlers::auth::login))
         .route("/user", get(handlers::user::get_user))
