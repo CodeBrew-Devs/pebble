@@ -18,7 +18,7 @@ else
     -e POSTGRES_PASSWORD="${DB_PASS}" \
     -e POSTGRES_DB="${DB_NAME}" \
     -p "${HOST_PORT}:5432" \
-    postgres:16-alpine
+    postgres:18-alpine
 fi
 
 echo "Waiting for PostgreSQL to be ready..."
