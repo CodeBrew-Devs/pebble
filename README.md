@@ -11,7 +11,9 @@
 
 A full-stack, mobile-first budgeting web app with a React + TypeScript frontend and a Rust/Axum REST API backend. Built from scratch — including a custom auth system — to help first-time budgeters understand their spending without the overwhelm.
 
-**[Live Demo](#)** · **[Frontend](./frontend)** · **[Backend](./backend)**
+**[Live Demo](https://pebble-frontend.onrender.com)** Note: This is deployed on a free tier, so the first request may take a few seconds to wake up the server.
+**[Frontend](./frontend)**
+**[Backend](./backend)**
 
 ---
 
