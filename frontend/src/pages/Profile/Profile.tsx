@@ -1,22 +1,37 @@
+import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import styles from './Profile.module.css';
 
-const SETTINGS_SECTIONS = [
+// Type for individual settings list items — isAdd flags the special "Add a goal" row
+interface SettingsItem {
+  icon: string;
+  bg: string;
+  label: string;
+  value: string;
+  isAdd?: boolean;
+}
+
+interface SettingsSection {
+  title: string;
+  items: SettingsItem[];
+}
+
+const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: 'Income',
     items: [
-      { icon: '💵', bg: '#dcfce7', label: 'Monthly Income',  value: '$5,200' },
-      { icon: '📅', bg: '#fef9c3', label: 'Pay Frequency',   value: 'Bi-weekly' },
+      { icon: '💵', bg: '#dcfce7', label: 'Monthly Income', value: '$5,200' },
+      { icon: '📅', bg: '#fef9c3', label: 'Pay Frequency', value: 'Bi-weekly' },
     ],
   },
   {
     title: 'Savings Goals',
     items: [
       { icon: '🛡️', bg: '#d1fae5', label: 'Emergency Fund', value: '$6,000 target' },
-      { icon: '✈️', bg: '#ede9fe', label: 'Vacation',        value: '$2,500 target' },
-      { icon: '📈', bg: '#e0f2fe', label: 'Investing',       value: '$5,000 target' },
-      { icon: '+',  bg: 'var(--color-sage-light)', label: 'Add a goal', value: '', isAdd: true },
+      { icon: '✈️', bg: '#ede9fe', label: 'Vacation', value: '$2,500 target' },
+      { icon: '📈', bg: '#e0f2fe', label: 'Investing', value: '$5,000 target' },
+      { icon: '+', bg: 'var(--color-sage-light)', label: 'Add a goal', value: '', isAdd: true },
     ],
   },
   {
@@ -28,8 +43,8 @@ const SETTINGS_SECTIONS = [
   {
     title: 'Account',
     items: [
-      { icon: '🔒', bg: '#f1f5f9', label: 'Change Password',      value: '' },
-      { icon: '📧', bg: '#f1f5f9', label: 'Email Notifications',  value: 'On' },
+      { icon: '🔒', bg: '#f1f5f9', label: 'Change Password', value: '' },
+      { icon: '📧', bg: '#f1f5f9', label: 'Email Notifications', value: 'On' },
     ],
   },
 ];
@@ -37,6 +52,13 @@ const SETTINGS_SECTIONS = [
 export function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  //Controlled state for budget allocation sliders
+  const [needs, setNeeds] = useState(50); //initial value of 50
+  const [wants, setWants] = useState(30); //initial value of 30
+
+  //Savings is always derived-never stored separately
+  const savings: number = 100 - needs - wants;
 
   const initials = user
     ? `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
@@ -65,28 +87,61 @@ export function Profile() {
       <div className={styles.section}>
         <p className={styles.sectionTitle}>Budget Allocation</p>
         <div className={styles.allocationCard}>
-          {(
-            [
-              { key: 'needs',   label: '🏠 Needs',   color: 'var(--color-needs)',   accentColor: '#f59e0b', defaultVal: 50 },
-              { key: 'wants',   label: '🎉 Wants',   color: 'var(--color-wants)',   accentColor: '#a78bfa', defaultVal: 30 },
-              { key: 'savings', label: '💰 Savings', color: 'var(--color-savings)', accentColor: '#34d399', defaultVal: 20 },
-            ] as const
-          ).map(({ key, label, color, accentColor, defaultVal }) => (
-            <div key={key} className={styles.sliderRow}>
-              <div className={styles.sliderHeader}>
-                <span className={styles.sliderLabel}>{label}</span>
-                <span className={styles.sliderPct} style={{ color }}>{defaultVal}%</span>
-              </div>
-              <input
-                type="range"
-                min={key === 'needs' ? 10 : 5}
-                max={key === 'needs' ? 80 : 60}
-                defaultValue={defaultVal}
-                style={{ width: '100%', accentColor }}
-              />
+
+          {/* Needs slider — user controls freely between 10% and 80% */}
+          <div className={styles.sliderRow}>
+            <div className={styles.sliderHeader}>
+              <span className={styles.sliderLabel}>🏠 Needs</span>
+              <span className={styles.sliderPct} style={{ color: 'var(--color-needs)' }}>{needs}%</span>
             </div>
-          ))}
+            <input
+              type="range"
+              min={10}
+              max={80}
+              value={needs}
+              onChange={(e) => {
+                const newNeeds = Number(e.target.value);
+                setNeeds(newNeeds);
+                if (wants > 95 - newNeeds) setWants(95 - newNeeds);
+              }}
+              style={{ width: '100%', accentColor: '#f59e0b' }}
+            />
+          </div>
+
+          {/* Wants slider — max is dynamic so savings never drops below 5% */}
+          <div className={styles.sliderRow}>
+            <div className={styles.sliderHeader}>
+              <span className={styles.sliderLabel}>🎉 Wants</span>
+              <span className={styles.sliderPct} style={{ color: 'var(--color-wants)' }}>{wants}%</span>
+            </div>
+            <input
+              type="range"
+              min={5}
+              max={95 - needs}
+              value={wants}
+              onChange={(e) => setWants(Number(e.target.value))}
+              style={{ width: '100%', accentColor: '#a78bfa' }}
+            />
+          </div>
+
+          {/* Savings — read-only, always computed as 100 - needs - wants */}
+          <div className={styles.sliderRow}>
+            <div className={styles.sliderHeader}>
+              <span className={styles.sliderLabel}>💰 Savings</span>
+              <span className={styles.sliderPct} style={{ color: 'var(--color-savings)' }}>{savings}%</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={savings}
+              readOnly
+              style={{ width: '100%', accentColor: '#34d399', opacity: 0.5, cursor: 'not-allowed' }}
+            />
+          </div>
+
         </div>
+
       </div>
 
       {/* Settings sections */}
@@ -97,16 +152,17 @@ export function Profile() {
             {section.items.map((item) => (
               <div
                 key={item.label}
-                className={[styles.settingsItem, (item as any).isAdd ? styles.settingsItemAdd : ''].join(' ')}
+                className={[styles.settingsItem, item.isAdd ? styles.settingsItemAdd : ''].join(' ')}
               >
                 <div className={styles.settingsIcon} style={{ background: item.bg }}>
                   {item.icon}
                 </div>
-                <span className={[styles.settingsLabel, (item as any).isAdd ? styles.settingsLabelAdd : ''].join(' ')}>
+                {/* Use isAdd to conditionally apply the add-row label style */}
+                <span className={[styles.settingsLabel, item.isAdd ? styles.settingsLabelAdd : ''].join(' ')}>
                   {item.label}
                 </span>
                 {item.value && <span className={styles.settingsValue}>{item.value}</span>}
-                {!((item as any).isAdd) && <span className={styles.settingsArrow}>›</span>}
+                {!item.isAdd && <span className={styles.settingsArrow}>›</span>}
               </div>
             ))}
           </div>
