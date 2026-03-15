@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="
+    M 32 6
+    C 18 5, 7 13, 6 26
+    C 5 37, 10 50, 22 55
+    C 30 58, 42 57, 50 50
+    C 58 43, 60 31, 56 21
+    C 52 11, 43 7, 32 6
+    Z
+  " fill="#4d7465"></path><path d="
+    M 30 14
+    C 22 14, 16 19, 16 27
+    C 16 33, 20 39, 28 41
+    C 34 43, 42 40, 44 34
+    C 46 28, 43 19, 36 15
+    C 34 14, 32 14, 30 14
+    Z
+  " fill="#7c9e8f" opacity="0.5"></path><circle cx="24" cy="22" r="4" fill="white" opacity="0.25"></circle></svg>
