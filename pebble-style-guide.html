@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pebble — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Brand Colors */
+  --sage:        #7c9e8f;
+  --sage-light:  #e8f0ec;
+  --sage-dark:   #4d7465;
+  --stone-50:    #fafaf9;
+  --stone-100:   #f5f5f4;
+  --stone-200:   #e7e5e4;
+  --stone-300:   #d6d3d1;
+  --stone-400:   #a8a29e;
+  --stone-500:   #78716c;
+  --stone-700:   #44403c;
+  --stone-900:   #1c1917;
+  /* Semantic / Category */
+  --needs:       #f59e0b;
+  --needs-light: #fef3c7;
+  --wants:       #a78bfa;
+  --wants-light: #ede9fe;
+  --savings:     #34d399;
+  --savings-light:#d1fae5;
+  /* Accent */
+  --amber:       #d97706;
+  --sky:         #0ea5e9;
+  --rose:        #e11d48;
+  --teal:        #0d9488;
+  --violet:      #7c3aed;
+
+  --font-d: 'Fraunces', Georgia, serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-b);
+  background: var(--stone-100);
+  color: var(--stone-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.sg-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stone-200);
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 3rem; height: 56px;
+}
+.sg-nav-logo { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; color: var(--sage-dark); white-space: nowrap; }
+.sg-nav-logo span { color: var(--stone-900); }
+.sg-nav-links { display: flex; gap: 1.5rem; }
+.sg-nav-links a { font-size: .82rem; font-weight: 500; color: var(--stone-500); text-decoration: none; transition: color .15s; }
+.sg-nav-links a:hover { color: var(--stone-900); }
+
+.sg-hero {
+  background: var(--stone-900); color: #fff;
+  padding: 5rem 3rem 4rem;
+  position: relative; overflow: hidden;
+}
+.sg-hero::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: rgba(124,158,143,.12);
+}
+.sg-hero::after {
+  content: ''; position: absolute; bottom: -120px; right: 200px;
+  width: 250px; height: 250px; border-radius: 50%;
+  background: rgba(124,158,143,.07);
+}
+.sg-hero-label { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+.sg-hero h1 { font-family: var(--font-d); font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 1rem; }
+.sg-hero h1 span { color: var(--sage); }
+.sg-hero p { font-size: 1rem; color: rgba(255,255,255,.55); max-width: 480px; }
+.sg-hero-meta { display: flex; gap: 2rem; margin-top: 2.5rem; }
+.sg-hero-meta-item { }
+.sg-hero-meta-label { font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: .2rem; }
+.sg-hero-meta-val { font-size: .9rem; font-weight: 500; color: rgba(255,255,255,.8); }
+
+.sg-body { max-width: 1100px; margin: 0 auto; padding: 4rem 3rem; display: flex; flex-direction: column; gap: 5rem; }
+
+.sg-section-label {
+  font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sage-dark); margin-bottom: .5rem;
+}
+.sg-section-title {
+  font-family: var(--font-d); font-size: 2rem; font-weight: 500;
+  margin-bottom: .5rem; line-height: 1.2;
+}
+.sg-section-desc { font-size: .9rem; color: var(--stone-500); max-width: 540px; margin-bottom: 2.5rem; }
+.sg-divider { height: 1px; background: var(--stone-200); }
+
+/* ── Color Swatches ── */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+.color-swatch {
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.swatch-color { height: 80px; }
+.swatch-info { background: #fff; padding: .75rem; }
+.swatch-name { font-size: .8rem; font-weight: 600; color: var(--stone-900); }
+.swatch-hex { font-size: .75rem; color: var(--stone-500); font-family: 'Courier New', monospace; margin-top: 2px; }
+.swatch-role { font-size: .7rem; color: var(--stone-400); margin-top: 2px; }
+
+.color-group-title { font-size: .8rem; font-weight: 700; color: var(--stone-500); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1rem; margin-top: 2rem; }
+.color-group-title:first-child { margin-top: 0; }
+
+/* ── Typography ── */
+.type-sample { border-bottom: 1px solid var(--stone-200); padding-bottom: 2rem; margin-bottom: 2rem; }
+.type-sample:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.type-meta { display: flex; gap: 2rem; margin-bottom: .75rem; flex-wrap: wrap; }
+.type-meta-item { }
+.type-meta-label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--stone-400); }
+.type-meta-val { font-size: .8rem; color: var(--stone-600); font-family: 'Courier New', monospace; }
+
+/* ── Spacing ── */
+.spacing-row { display: flex; align-items: center; gap: 1.5rem; padding: .75rem 0; border-bottom: 1px solid var(--stone-100); }
+.spacing-row:last-child { border-bottom: none; }
+.spacing-bar-wrap { width: 200px; }
+.spacing-bar { height: 16px; background: var(--sage-light); border-radius: 4px; border: 1.5px solid var(--sage); }
+.spacing-token { font-family: 'Courier New', monospace; font-size: .8rem; color: var(--sage-dark); min-width: 80px; font-weight: 600; }
+.spacing-px { font-size: .8rem; color: var(--stone-500); min-width: 48px; }
+.spacing-usage { font-size: .8rem; color: var(--stone-500); }
+
+/* ── Border Radius ── */
+.radius-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.radius-card {
+  background: #fff; border: 1.5px solid var(--stone-200);
+  width: 100px; height: 100px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .4rem;
+}
+.radius-label { font-size: .72rem; font-weight: 600; color: var(--stone-700); }
+.radius-val { font-size: .68rem; font-family: 'Courier New', monospace; color: var(--stone-400); }
+
+/* ── Shadows ── */
+.shadow-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.shadow-card {
+  background: #fff; border-radius: 16px;
+  width: 160px; height: 100px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .4rem;
+}
+.shadow-label { font-size: .72rem; font-weight: 600; color: var(--stone-700); }
+.shadow-val { font-size: .65rem; font-family: 'Courier New', monospace; color: var(--stone-400); text-align: center; padding: 0 .5rem; }
+
+/* ── Components ── */
+.component-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem; }
+.component-label { font-size: .75rem; font-weight: 600; color: var(--stone-500); width: 120px; flex-shrink: 0; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-b); font-size: .9rem; font-weight: 500; padding: .75rem 1.5rem; border-radius: 100px; border: none; cursor: pointer; white-space: nowrap; }
+.btn-primary { background: var(--stone-900); color: #fff; }
+.btn-sage { background: var(--sage); color: #fff; }
+.btn-secondary { background: transparent; color: var(--stone-700); border: 1.5px solid var(--stone-300); }
+.btn-sm { padding: .45rem 1rem; font-size: .8rem; }
+.btn-ghost { background: transparent; color: var(--sage-dark); }
+
+.tag { display: inline-flex; align-items: center; padding: .2rem .65rem; border-radius: 100px; font-size: .75rem; font-weight: 500; }
+.tag-needs { background: var(--needs-light); color: #92400e; }
+.tag-wants { background: var(--wants-light); color: #5b21b6; }
+.tag-savings { background: var(--savings-light); color: #065f46; }
+.tag-uncategorized { background: var(--needs-light); color: #92400e; }
+
+.form-input { padding: .75rem 1rem; border-radius: 16px; border: 1.5px solid var(--stone-200); background: var(--stone-50); font-family: var(--font-b); font-size: .95rem; color: var(--stone-900); outline: none; }
+.form-input:focus { border-color: var(--sage); }
+.form-input-error { border-color: var(--rose); }
+
+.card-demo { background: #fff; border-radius: 24px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); max-width: 320px; }
+.card-dark { background: var(--stone-900); color: #fff; }
+
+/* ── Motion ── */
+.motion-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+.motion-pill { padding: .4rem 1rem; border-radius: 100px; background: var(--stone-200); font-family: 'Courier New', monospace; font-size: .8rem; color: var(--stone-700); }
+.motion-desc { font-size: .85rem; color: var(--stone-500); }
+
+/* ── Logo Showcase ── */
+.logo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+.logo-cell {
+  border-radius: 16px; padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+}
+.logo-cell-label { font-size: .72rem; font-weight: 600; color: var(--stone-400); letter-spacing: .08em; text-transform: uppercase; }
+.logo-cell-light { background: #fff; border: 1.5px solid var(--stone-200); }
+.logo-cell-dark { background: var(--stone-900); }
+.logo-cell-sage { background: var(--sage-light); }
+
+/* ── Voice & Tone ── */
+.tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.tone-card { border-radius: 16px; padding: 1.25rem; }
+.tone-card-do { background: var(--savings-light); border: 1.5px solid var(--savings); }
+.tone-card-dont { background: var(--needs-light); border: 1.5px solid #f59e0b; }
+.tone-card-header { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
+.tone-card-do .tone-card-header { color: #065f46; }
+.tone-card-dont .tone-card-header { color: #92400e; }
+.tone-item { font-size: .85rem; margin-bottom: .4rem; display: flex; gap: .5rem; }
+.tone-item::before { flex-shrink: 0; }
+.tone-card-do .tone-item::before { content: '✓'; color: var(--teal); font-weight: 700; }
+.tone-card-dont .tone-item::before { content: '✗'; color: var(--amber); font-weight: 700; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+th { text-align: left; padding: .6rem 1rem; background: var(--stone-100); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--stone-500); }
+td { padding: .75rem 1rem; border-bottom: 1px solid var(--stone-100); color: var(--stone-700); }
+td code { font-family: 'Courier New', monospace; font-size: .8rem; background: var(--stone-100); padding: .15rem .4rem; border-radius: 4px; color: var(--sage-dark); }
+tr:last-child td { border-bottom: none; }
+
+.badge { display: inline-flex; padding: .15rem .5rem; border-radius: 100px; font-size: .7rem; font-weight: 600; }
+.badge-new { background: var(--savings-light); color: #065f46; }
+.badge-core { background: var(--sage-light); color: var(--sage-dark); }
+
+/* ── Goal Card Demo ── */
+.goal-card-demo { border-radius: 20px; padding: 1.1rem; min-width: 180px; display: inline-block; }
+.gcd-icon { font-size: 1.4rem; margin-bottom: .4rem; }
+.gcd-label { font-size: .7rem; font-weight: 600; color: rgba(255,255,255,.65); letter-spacing: .06em; text-transform: uppercase; }
+.gcd-amount { font-family: var(--font-d); font-size: 1.4rem; font-weight: 600; color: #fff; margin: .1rem 0; }
+.gcd-target { font-size: .72rem; color: rgba(255,255,255,.5); margin-bottom: .6rem; }
+.gcd-bar { height: 6px; border-radius: 100px; background: rgba(255,255,255,.2); }
+.gcd-fill { height: 100%; border-radius: 100px; background: rgba(255,255,255,.8); }
+.gcd-pct { font-size: .68rem; color: rgba(255,255,255,.55); margin-top: .35rem; }
+
+@media print {
+  .sg-nav { display: none; }
+  .sg-hero { padding: 3rem; }
+  .sg-body { padding: 2rem; gap: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sg-nav">
+  <div class="sg-nav-logo">pebble<span>.</span> <span style="font-family:var(--font-b);font-size:.75rem;font-weight:400;color:var(--stone-400);margin-left:.5rem">Style Guide</span></div>
+  <div class="sg-nav-links">
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#components">Components</a>
+    <a href="#logo">Logo</a>
+    <a href="#motion">Motion</a>
+    <a href="#voice">Voice</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="sg-hero">
+  <div class="sg-hero-label">Brand &amp; Design System</div>
+  <h1>pebble<span>.</span><br>Style Guide</h1>
+  <p>A living reference for design decisions, component patterns, and brand identity behind the Pebble budgeting app.</p>
+  <div class="sg-hero-meta">
+    <div class="sg-hero-meta-item">
+      <div class="sg-hero-meta-label">Version</div>
+      <div class="sg-hero-meta-val">v1.0 — Draft</div>
+    </div>
+    <div class="sg-hero-meta-item">
+      <div class="sg-hero-meta-label">Last Updated</div>
+      <div class="sg-hero-meta-val">March 2026</div>
+    </div>
+    <div class="sg-hero-meta-item">
+      <div class="sg-hero-meta-label">Icon Library</div>
+      <div class="sg-hero-meta-val">Lucide React</div>
+    </div>
+    <div class="sg-hero-meta-item">
+      <div class="sg-hero-meta-label">Framework</div>
+      <div class="sg-hero-meta-val">React + TypeScript</div>
+    </div>
+  </div>
+</div>
+
+<div class="sg-body">
+
+  <!-- ══════════════════════ COLORS ══ -->
+  <section id="colors">
+    <div class="sg-section-label">01 — Foundation</div>
+    <h2 class="sg-section-title">Color</h2>
+    <p class="sg-section-desc">Pebble's palette is calm and earthy, grounded in sage greens and warm stones. Category colors (Needs, Wants, Savings) inject purposeful energy without breaking the overall serenity.</p>
+
+    <div class="color-group-title">Brand — Primary</div>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="swatch-color" style="background:#4d7465"></div>
+        <div class="swatch-info"><div class="swatch-name">Sage Dark</div><div class="swatch-hex">#4d7465</div><div class="swatch-role">Primary brand, sidebar active, links</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-color" style="background:#7c9e8f"></div>
+        <div class="swatch-info"><div class="swatch-name">Sage</div><div class="swatch-hex">#7c9e8f</div><div class="swatch-role">Buttons, accents, progress fills</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-color" style="background:#e8f0ec"></div>
+        <div class="swatch-info"><div class="swatch-name">Sage Light</div><div class="swatch-hex">#e8f0ec</div><div class="swatch-role">Hover states, selected bg, tags</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-color" style="background:#1c1917"></div>
+        <div class="swatch-info"><div class="swatch-name">Stone 900</div><div class="swatch-hex">#1c1917</div><div class="swatch-role">Logo dot, hero cards, primary btn</div></div>
+      </div>
+    </div>
+
+    <div class="color-group-title">Neutral — Stone Scale</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-color" style="background:#fafaf9;border:1px solid #e7e5e4"></div><div class="swatch-info"><div class="swatch-name">Stone 50</div><div class="swatch-hex">#fafaf9</div><div class="swatch-role">Input backgrounds</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#f5f5f4"></div><div class="swatch-info"><div class="swatch-name">Stone 100</div><div class="swatch-hex">#f5f5f4</div><div class="swatch-role">App background</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#e7e5e4"></div><div class="swatch-info"><div class="swatch-name">Stone 200</div><div class="swatch-hex">#e7e5e4</div><div class="swatch-role">Borders, dividers</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#d6d3d1"></div><div class="swatch-info"><div class="swatch-name">Stone 300</div><div class="swatch-hex">#d6d3d1</div><div class="swatch-role">Secondary borders</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#a8a29e"></div><div class="swatch-info"><div class="swatch-name">Stone 400</div><div class="swatch-hex">#a8a29e</div><div class="swatch-role">Placeholder, muted icons</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#78716c"></div><div class="swatch-info"><div class="swatch-name">Stone 500</div><div class="swatch-hex">#78716c</div><div class="swatch-role">Secondary text, labels</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#44403c"></div><div class="swatch-info"><div class="swatch-name">Stone 700</div><div class="swatch-hex">#44403c</div><div class="swatch-role">Body text</div></div></div>
+    </div>
+
+    <div class="color-group-title">Category — Semantic</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-color" style="background:#f59e0b"></div><div class="swatch-info"><div class="swatch-name">Needs</div><div class="swatch-hex">#f59e0b</div><div class="swatch-role">Needs category color</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#fef3c7"></div><div class="swatch-info"><div class="swatch-name">Needs Light</div><div class="swatch-hex">#fef3c7</div><div class="swatch-role">Needs tag background</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#a78bfa"></div><div class="swatch-info"><div class="swatch-name">Wants</div><div class="swatch-hex">#a78bfa</div><div class="swatch-role">Wants category color</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#ede9fe"></div><div class="swatch-info"><div class="swatch-name">Wants Light</div><div class="swatch-hex">#ede9fe</div><div class="swatch-role">Wants tag background</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#34d399"></div><div class="swatch-info"><div class="swatch-name">Savings</div><div class="swatch-hex">#34d399</div><div class="swatch-role">Savings category color</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#d1fae5"></div><div class="swatch-info"><div class="swatch-name">Savings Light</div><div class="swatch-hex">#d1fae5</div><div class="swatch-role">Savings tag background</div></div></div>
+    </div>
+
+    <div class="color-group-title">Status &amp; Feedback</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-color" style="background:#e11d48"></div><div class="swatch-info"><div class="swatch-name">Rose</div><div class="swatch-hex">#e11d48</div><div class="swatch-role">Errors, destructive actions</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#d97706"></div><div class="swatch-info"><div class="swatch-name">Amber</div><div class="swatch-hex">#d97706</div><div class="swatch-role">Warnings, uncategorized</div></div></div>
+      <div class="color-swatch"><div class="swatch-color" style="background:#0ea5e9"></div><div class="swatch-info"><div class="swatch-name">Sky</div><div class="swatch-hex">#0ea5e9</div><div class="swatch-role">Info, investing goal</div></div></div>
+    </div>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ TYPOGRAPHY ══ -->
+  <section id="typography">
+    <div class="sg-section-label">02 — Foundation</div>
+    <h2 class="sg-section-title">Typography</h2>
+    <p class="sg-section-desc">Two typefaces. Fraunces brings warmth and personality to headings — its optical size axis makes it feel tailored. DM Sans handles all UI text with clean legibility across sizes.</p>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-item"><div class="type-meta-label">Family</div><div class="type-meta-val">Fraunces</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Role</div><div class="type-meta-val">Display / Headings</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Weights</div><div class="type-meta-val">300, 500, 700</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Source</div><div class="type-meta-val">Google Fonts</div></div>
+      </div>
+      <div style="font-family:'Fraunces',serif;font-size:3rem;font-weight:700;line-height:1.1;margin-bottom:.5rem">Drop a pebble.</div>
+      <div style="font-family:'Fraunces',serif;font-size:2rem;font-weight:500;line-height:1.2;margin-bottom:.5rem;color:var(--stone-700)">Watch your savings ripple.</div>
+      <div style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;font-style:italic;color:var(--stone-500)">Small steps. Big clarity.</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">
+        <div class="type-meta-item"><div class="type-meta-label">Family</div><div class="type-meta-val">DM Sans</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Role</div><div class="type-meta-val">UI / Body / Labels</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Weights</div><div class="type-meta-val">300, 400, 500, 600</div></div>
+        <div class="type-meta-item"><div class="type-meta-label">Source</div><div class="type-meta-val">Google Fonts</div></div>
+      </div>
+      <div style="font-size:1rem;font-weight:400;line-height:1.6;margin-bottom:.75rem;color:var(--stone-700)">Pebble helps you understand where your money goes — without the overwhelm. Track needs, wants, and savings with clarity and purpose.</div>
+      <div style="font-size:.85rem;font-weight:500;color:var(--stone-500)">Label text · Navigation · Metadata · Tags</div>
+    </div>
+
+    <table style="margin-top:1.5rem">
+      <thead>
+        <tr><th>Token</th><th>Size</th><th>Weight</th><th>Font</th><th>Usage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>display-xl</code></td><td>3.5rem / 56px</td><td>700</td><td>Fraunces</td><td>Hero headings</td></tr>
+        <tr><td><code>display-lg</code></td><td>2.6rem / 42px</td><td>700</td><td>Fraunces</td><td>Dashboard hero numbers</td></tr>
+        <tr><td><code>display-md</code></td><td>1.7rem / 27px</td><td>500</td><td>Fraunces</td><td>Page titles, onboarding questions</td></tr>
+        <tr><td><code>display-sm</code></td><td>1.4rem / 22px</td><td>500</td><td>Fraunces</td><td>Card titles, modal headings</td></tr>
+        <tr><td><code>body-lg</code></td><td>1rem / 16px</td><td>400</td><td>DM Sans</td><td>Primary body text</td></tr>
+        <tr><td><code>body-md</code></td><td>.9rem / 14px</td><td>400–500</td><td>DM Sans</td><td>UI text, list items</td></tr>
+        <tr><td><code>body-sm</code></td><td>.8rem / 13px</td><td>500</td><td>DM Sans</td><td>Labels, secondary text</td></tr>
+        <tr><td><code>label</code></td><td>.75rem / 12px</td><td>500–600</td><td>DM Sans</td><td>Tags, metadata, captions</td></tr>
+        <tr><td><code>overline</code></td><td>.7rem / 11px</td><td>700</td><td>DM Sans</td><td>Section labels, uppercase trackers</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ SPACING ══ -->
+  <section id="spacing">
+    <div class="sg-section-label">03 — Foundation</div>
+    <h2 class="sg-section-title">Spacing &amp; Radius</h2>
+    <p class="sg-section-desc">A 4px base grid keeps spacing consistent. Border radii scale from tight (inputs) to generous (hero cards), reinforcing the app's approachable, rounded character.</p>
+
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--stone-700)">Spacing Scale</h3>
+    <div>
+      <div class="spacing-row"><div class="spacing-token">space-1</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px"></div></div><div class="spacing-px">4px</div><div class="spacing-usage">Icon gaps, micro spacing</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-2</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div></div><div class="spacing-px">8px</div><div class="spacing-usage">Tight internal padding</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-3</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px"></div></div><div class="spacing-px">12px</div><div class="spacing-usage">Tag padding, compact rows</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-4</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div></div><div class="spacing-px">16px</div><div class="spacing-usage">Default card padding, list rows</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-5</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px"></div></div><div class="spacing-px">20px</div><div class="spacing-usage">Section inner padding</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-6</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px"></div></div><div class="spacing-px">24px</div><div class="spacing-usage">Card padding (default)</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-8</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px"></div></div><div class="spacing-px">32px</div><div class="spacing-usage">Section gaps</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-10</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:40px"></div></div><div class="spacing-px">40px</div><div class="spacing-usage">Hero card padding</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-12</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div></div><div class="spacing-px">48px</div><div class="spacing-usage">Page vertical padding</div></div>
+      <div class="spacing-row"><div class="spacing-token">space-16</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px"></div></div><div class="spacing-px">64px</div><div class="spacing-usage">Section separators</div></div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:2rem 0 1rem;color:var(--stone-700)">Border Radius</h3>
+    <div class="radius-grid">
+      <div class="radius-card" style="border-radius:4px"><div class="radius-label">XS</div><div class="radius-val">4px</div></div>
+      <div class="radius-card" style="border-radius:8px"><div class="radius-label">SM</div><div class="radius-val">8px</div></div>
+      <div class="radius-card" style="border-radius:16px"><div class="radius-label">MD</div><div class="radius-val">16px</div></div>
+      <div class="radius-card" style="border-radius:24px"><div class="radius-label">LG</div><div class="radius-val">24px</div></div>
+      <div class="radius-card" style="border-radius:32px"><div class="radius-label">XL</div><div class="radius-val">32px</div></div>
+      <div class="radius-card" style="border-radius:100px"><div class="radius-label">FULL</div><div class="radius-val">100px</div></div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:2rem 0 1rem;color:var(--stone-700)">Elevation / Shadow</h3>
+    <div class="shadow-grid">
+      <div class="shadow-card" style="box-shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04)">
+        <div class="shadow-label">Shadow SM</div>
+        <div class="shadow-val">Cards, list items, inputs</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 4px 16px rgba(0,0,0,.08)">
+        <div class="shadow-label">Shadow MD</div>
+        <div class="shadow-val">Hover states, dropdowns</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 8px 32px rgba(0,0,0,.10)">
+        <div class="shadow-label">Shadow LG</div>
+        <div class="shadow-val">Auth cards, modals</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 4px 20px rgba(124,158,143,.5)">
+        <div class="shadow-label">Shadow FAB</div>
+        <div class="shadow-val">FAB button (sage glow)</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ COMPONENTS ══ -->
+  <section id="components">
+    <div class="sg-section-label">04 — Components</div>
+    <h2 class="sg-section-title">UI Components</h2>
+    <p class="sg-section-desc">Core reusable components. Each maps directly to a Lucide React icon + a Tailwind or CSS module class. States shown where applicable.</p>
+
+    <!-- Buttons -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--stone-700);margin-bottom:1.25rem">Buttons</h3>
+    <div class="component-row">
+      <div class="component-label">Primary</div>
+      <button class="btn btn-primary">Sign in</button>
+      <button class="btn btn-primary btn-sm">Small</button>
+    </div>
+    <div class="component-row">
+      <div class="component-label">Sage (CTA)</div>
+      <button class="btn btn-sage">Continue →</button>
+      <button class="btn btn-sage btn-sm">Add Transaction</button>
+    </div>
+    <div class="component-row">
+      <div class="component-label">Secondary</div>
+      <button class="btn btn-secondary">← Back</button>
+      <button class="btn btn-secondary btn-sm">Edit</button>
+    </div>
+    <div class="component-row">
+      <div class="component-label">Ghost</div>
+      <button class="btn btn-ghost">View all</button>
+    </div>
+
+    <!-- Tags -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--stone-700);margin:2rem 0 1.25rem">Category Tags</h3>
+    <div class="component-row">
+      <div class="component-label">Categories</div>
+      <span class="tag tag-needs">Needs</span>
+      <span class="tag tag-wants">Wants</span>
+      <span class="tag tag-savings">Savings</span>
+      <span class="tag" style="background:var(--needs-light);color:var(--amber)">Uncategorized</span>
+    </div>
+
+    <!-- Inputs -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--stone-700);margin:2rem 0 1.25rem">Form Inputs</h3>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;max-width:600px">
+      <input class="form-input" placeholder="Default state" style="flex:1;min-width:180px" />
+      <input class="form-input" value="Focused state" style="flex:1;min-width:180px;border-color:var(--sage)" />
+      <input class="form-input form-input-error" value="Error state" style="flex:1;min-width:180px" />
+    </div>
+
+    <!-- Cards -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--stone-700);margin:2rem 0 1.25rem">Cards</h3>
+    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start">
+      <div class="card-demo">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--stone-400);margin-bottom:.5rem">Light Card</div>
+        <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:500;margin-bottom:.25rem">$482.50</div>
+        <div style="font-size:.8rem;color:var(--stone-500)">Saved this month</div>
+      </div>
+      <div class="card-demo card-dark">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.5rem">Dark Hero Card</div>
+        <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.25rem">$482.50</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.5)">of $600 monthly goal</div>
+      </div>
+      <div class="goal-card-demo" style="background:linear-gradient(135deg,#059669,#34d399)">
+        <div class="gcd-icon">🛡️</div>
+        <div class="gcd-label">Emergency Fund</div>
+        <div class="gcd-amount">$3,240</div>
+        <div class="gcd-target">of $6,000 goal</div>
+        <div class="gcd-bar"><div class="gcd-fill" style="width:54%"></div></div>
+        <div class="gcd-pct">54% — keep going!</div>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <h3 style="font-size:1rem;font-weight:700;color:var(--stone-700);margin:2rem 0 .5rem">Icon Usage — Lucide React</h3>
+    <p style="font-size:.85rem;color:var(--stone-500);margin-bottom:1.25rem">Install: <code style="font-family:monospace;background:var(--stone-100);padding:.2rem .5rem;border-radius:6px">npm install lucide-react</code>. Use 24px stroke icons throughout. Stroke width: 1.5.</p>
+    <table>
+      <thead>
+        <tr><th>Icon Name</th><th>Lucide Component</th><th>Usage in Pebble</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Home</td><td><code>HomeIcon</code></td><td>Dashboard nav</td></tr>
+        <tr><td>CreditCard</td><td><code>CreditCardIcon</code></td><td>Transactions nav</td></tr>
+        <tr><td>User</td><td><code>UserIcon</code></td><td>Profile nav</td></tr>
+        <tr><td>Plus</td><td><code>PlusIcon</code></td><td>FAB — add transaction</td></tr>
+        <tr><td>Search</td><td><code>SearchIcon</code></td><td>Transaction search bar</td></tr>
+        <tr><td>ChevronRight</td><td><code>ChevronRightIcon</code></td><td>Settings list arrows</td></tr>
+        <tr><td>TrendingUp</td><td><code>TrendingUpIcon</code></td><td>Savings / investing goal</td></tr>
+        <tr><td>Target</td><td><code>TargetIcon</code></td><td>Goals section</td></tr>
+        <tr><td>Tag</td><td><code>TagIcon</code></td><td>Transaction tags</td></tr>
+        <tr><td>LogOut</td><td><code>LogOutIcon</code></td><td>Sign out</td></tr>
+        <tr><td>Lock</td><td><code>LockIcon</code></td><td>Change password</td></tr>
+        <tr><td>Bell</td><td><code>BellIcon</code></td><td>Notifications</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ LOGO ══ -->
+  <section id="logo">
+    <div class="sg-section-label">05 — Identity</div>
+    <h2 class="sg-section-title">Logo &amp; Brand Mark</h2>
+    <p class="sg-section-desc">Three logo variants for different contexts. The wordmark is primary. The symbol mark works as a favicon or app icon. The lockup combines both for marketing contexts.</p>
+
+    <div class="logo-grid">
+      <div class="logo-cell logo-cell-light">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#4d7465">pebble</text>
+          <text x="96" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#1c1917">.</text>
+        </svg>
+        <div class="logo-cell-label">Wordmark — Light BG</div>
+      </div>
+      <div class="logo-cell logo-cell-dark">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#7c9e8f">pebble</text>
+          <text x="96" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#ffffff">.</text>
+        </svg>
+        <div class="logo-cell-label" style="color:rgba(255,255,255,.4)">Wordmark — Dark BG</div>
+      </div>
+      <div class="logo-cell logo-cell-sage">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#4d7465">pebble</text>
+          <text x="96" y="30" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#1c1917">.</text>
+        </svg>
+        <div class="logo-cell-label">Wordmark — Sage BG</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem;padding:1.25rem;background:#fff;border-radius:16px;border:1.5px solid var(--stone-200)">
+      <div style="font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-400);margin-bottom:1rem">Logo Rules</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:.85rem;color:var(--stone-700)">
+        <div>✓ Always use Fraunces Bold (700) for the wordmark</div>
+        <div>✓ Minimum size: 80px wide for wordmark</div>
+        <div>✓ "pebble" in sage-dark (#4d7465) on light backgrounds</div>
+        <div>✓ "pebble" in sage (#7c9e8f) on dark backgrounds</div>
+        <div>✓ Dot "." always in contrast color (dark or white)</div>
+        <div>✗ Never stretch, rotate, or recolor outside the rules</div>
+        <div>✗ Never use on busy backgrounds without a clear field</div>
+        <div>✗ Never use all-black or all-white for the full wordmark</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ MOTION ══ -->
+  <section id="motion">
+    <div class="sg-section-label">06 — Interaction</div>
+    <h2 class="sg-section-title">Motion &amp; Animation</h2>
+    <p class="sg-section-desc">Motion in Pebble is calm and purposeful — never flashy. Transitions reinforce spatial relationships and provide gentle feedback. All durations are under 400ms.</p>
+
+    <table>
+      <thead>
+        <tr><th>Token</th><th>Duration</th><th>Easing</th><th>Usage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>motion-instant</code></td><td>100ms</td><td>ease</td><td>Hover color changes, chip selections</td></tr>
+        <tr><td><code>motion-fast</code></td><td>150–200ms</td><td>ease</td><td>Button hover, border focus, icon states</td></tr>
+        <tr><td><code>motion-default</code></td><td>300ms</td><td>ease</td><td>Page transitions, modal open/close</td></tr>
+        <tr><td><code>motion-deliberate</code></td><td>350ms</td><td>cubic-bezier(.34,1.56,.64,1)</td><td>Progress bars, goal card fills (spring)</td></tr>
+        <tr><td><code>motion-slow</code></td><td>600–800ms</td><td>cubic-bezier(.34,1.56,.64,1)</td><td>Budget split bar on dashboard load</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:1.5rem;padding:1.25rem;background:#fff;border-radius:16px;border:1.5px solid var(--stone-200)">
+      <div style="font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-400);margin-bottom:.75rem">Key Animations</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.85rem;color:var(--stone-700)">
+        <div><strong>fadeUp</strong> — Page entrance: opacity 0→1 + translateY(12px→0) over 350ms. Used on every page transition.</div>
+        <div><strong>slideUp</strong> — Bottom sheet modal: translateY(60px→0) + opacity over 300ms with spring easing.</div>
+        <div><strong>Progress fill</strong> — Goal bars animate width from 0→target on mount, 800ms spring, stagger 100ms per card.</div>
+        <div><strong>Hover lift</strong> — Primary/sage buttons: translateY(-1px) + shadow on hover, 200ms ease.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sg-divider"></div>
+
+  <!-- ══════════════════════ VOICE ══ -->
+  <section id="voice">
+    <div class="sg-section-label">07 — Brand</div>
+    <h2 class="sg-section-title">Voice &amp; Tone</h2>
+    <p class="sg-section-desc">Pebble speaks like a knowledgeable, encouraging friend — never a stern financial advisor. Keep it warm, specific, and forward-looking.</p>
+
+    <div class="tone-grid">
+      <div class="tone-card tone-card-do">
+        <div class="tone-card-header">✓ Do</div>
+        <div class="tone-item">Use encouraging, forward-looking language</div>
+        <div class="tone-item">Reference the user's specific goals by name</div>
+        <div class="tone-item">Celebrate milestones, even small ones</div>
+        <div class="tone-item">Use simple, jargon-free money language</div>
+        <div class="tone-item">Frame debt payoff as progress, not deficit</div>
+        <div class="tone-item">Use the pebble metaphor where natural</div>
+      </div>
+      <div class="tone-card tone-card-dont">
+        <div class="tone-card-header">✗ Don't</div>
+        <div class="tone-item">Use banking jargon or formal financial terms</div>
+        <div class="tone-item">Guilt or shame users about overspending</div>
+        <div class="tone-item">Use vague, generic taglines that could be anything</div>
+        <div class="tone-item">Show negative numbers without context</div>
+        <div class="tone-item">Overload with data — simplicity is the product</div>
+        <div class="tone-item">Be preachy about financial decisions</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem">
+      <div style="font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone-400);margin-bottom:1rem">Example Copy</div>
+      <table>
+        <thead><tr><th>Context</th><th>✗ Avoid</th><th>✓ Use</th></tr></thead>
+        <tbody>
+          <tr><td>Goal progress</td><td>You've saved $890 of $2,500</td><td>Flight in sight! $890 down, $1,610 to go.</td></tr>
+          <tr><td>Uncategorized tx</td><td>Unclassified transaction detected</td><td>Quick — where does this one go?</td></tr>
+          <tr><td>Onboarding goals</td><td>Select financial objectives</td><td>What are you saving for?</td></tr>
+          <tr><td>Empty state</td><td>No transactions found</td><td>Drop your first pebble — add a transaction.</td></tr>
+          <tr><td>Savings milestone</td><td>Goal 50% complete</td><td>Halfway there! Your emergency fund is growing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div><!-- /sg-body -->
+</body>
+</html>
