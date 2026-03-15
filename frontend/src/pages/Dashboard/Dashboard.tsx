@@ -40,7 +40,7 @@ function GoalProgressCard({ goal }: { goal: Goal }) {
 
 export function Dashboard() {
   const { user } = useAuth();
-  const firstName = user?.name.split(' ')[0] ?? 'there';
+  const firstName = user?.firstName ?? 'there';
 
   return (
     <div className={styles.page}>

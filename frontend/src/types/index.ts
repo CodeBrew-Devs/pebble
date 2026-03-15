@@ -4,8 +4,10 @@ export type BudgetCategory = 'needs' | 'wants' | 'savings';
 
 export interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  onboardingCompletedAt: string | null;
   createdAt: string;
 }
 
