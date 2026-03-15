@@ -1,10 +1,13 @@
 use std::sync::Arc;
 
 use axum::{
-    routing::{get, post},
+    routing::{delete, get, patch, post},
     Router,
 };
-use tower_http::{cors::{Any, CorsLayer}, trace::TraceLayer};
+use tower_http::{
+    cors::{Any, CorsLayer},
+    trace::TraceLayer,
+};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 mod auth;
@@ -47,6 +50,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .route("/auth/login", post(handlers::auth::login))
         .route("/user", get(handlers::user::get_user))
         .route("/user/onboarding", post(handlers::user::onboarding))
+        .route(
+            "/transactions",
+            get(handlers::transactions::list_transactions)
+                .post(handlers::transactions::create_transaction),
+        )
+        .route(
+            "/transactions/{id}",
+            patch(handlers::transactions::update_transaction)
+                .delete(handlers::transactions::delete_transaction),
+        )
         .with_state(state)
         .layer(cors)
         .layer(TraceLayer::new_for_http());

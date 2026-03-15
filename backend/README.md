@@ -77,8 +77,14 @@ Database migrations are applied automatically on startup. The server listens on 
 | `POST` | `/auth/login` | — | Log in |
 | `GET` | `/user` | Bearer token | Get current user |
 | `POST` | `/user/onboarding` | Bearer token | Complete onboarding |
+| `GET` | `/transactions` | Bearer token | List transactions (newest first) |
+| `POST` | `/transactions` | Bearer token | Create a transaction |
+| `PATCH` | `/transactions/{id}` | Bearer token | Update category / tags |
+| `DELETE` | `/transactions/{id}` | Bearer token | Delete a transaction |
 
 All responses are wrapped as `{ "data": ... }`. Errors return `{ "error": "..." }` with an appropriate HTTP status code.
+
+The `amount` field must be sent as a decimal string (e.g. `"-42.50"`), not a JSON number, to preserve financial precision.
 
 ### Signup
 
@@ -115,4 +121,44 @@ curl -X POST http://localhost:3000/user/onboarding \
     "incomeFrequency": "monthly",
     "budgetSplit": { "needs": 50, "wants": 30, "savings": 20 }
   }'
+```
+
+### Transactions
+
+**List:**
+
+```bash
+curl http://localhost:3000/transactions \
+  -H "Authorization: Bearer <token>"
+```
+
+**Create:**
+
+```bash
+curl -X POST http://localhost:3000/transactions \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Grocery run",
+    "amount": "-67.40",
+    "date": "2026-03-15",
+    "category": "needs",
+    "tagIds": ["<uuid>"]
+  }'
+```
+
+**Update (category / tags):**
+
+```bash
+curl -X PATCH http://localhost:3000/transactions/<id> \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"category": "wants", "tagIds": []}'
+```
+
+**Delete:**
+
+```bash
+curl -X DELETE http://localhost:3000/transactions/<id> \
+  -H "Authorization: Bearer <token>"
 ```
