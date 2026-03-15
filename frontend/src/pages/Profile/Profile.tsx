@@ -38,12 +38,9 @@ export function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const initials = user?.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2) ?? 'ME';
+  const initials = user
+    ? `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
+    : 'ME';
 
   function handleLogout() {
     logout();
@@ -58,7 +55,7 @@ export function Profile() {
       <div className={styles.profileCard}>
         <div className={styles.avatar}>{initials}</div>
         <div className={styles.profileInfo}>
-          <p className={styles.profileName}>{user?.name ?? 'Alex Johnson'}</p>
+          <p className={styles.profileName}>{user ? `${user.firstName} ${user.lastName}` : 'Alex Johnson'}</p>
           <p className={styles.profileEmail}>{user?.email ?? 'alex@example.com'}</p>
         </div>
         <button className={styles.editBtn}>Edit</button>

@@ -87,7 +87,7 @@ A guided multi-step flow on first login that collects:
 | Language | Rust | Memory safety without a GC; compile-time guarantees for correctness |
 | Framework | Axum | Ergonomic tower-based middleware; async-native with Tokio |
 | Protocol | HTTP/2 | Multiplexed requests; lower latency under load |
-| Database | PostgreSQL 15 | ACID compliance; powerful relational model for financial data |
+| Database | PostgreSQL 16 | ACID compliance; powerful relational model for financial data |
 | Query layer | sqlx | Compile-time checked SQL queries; no ORM magic hiding N+1s |
 | Auth | Argon2 + jsonwebtoken | Argon2id is the current best-practice KDF; stateless JWT avoids session storage |
 
@@ -118,31 +118,29 @@ A guided multi-step flow on first login that collects:
 
 Base URL: `http://localhost:3000`
 
-All endpoints (except `POST /user` and auth) require a `Bearer` token in the `Authorization` header.
+All endpoints except `/auth/*` require an `Authorization: Bearer <token>` header.
 
-### Users
+### Auth
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `POST` | `/auth/signup` | — | Register a new user |
+| `POST` | `/auth/login` | — | Log in, receive JWT |
+
+### User
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `GET` | `/user` | ✓ | Get current user profile |
+| `POST` | `/user/onboarding` | ✓ | Submit onboarding data (goals, income, budget split) |
+
+### Transactions _(planned)_
 | Method | Path | Description |
 |---|---|---|
-| `POST` | `/user` | Register a new user |
-| `GET` | `/user/:user_id` | Get user profile |
-| `PATCH` | `/user/:user_id` | Update profile |
-| `DELETE` | `/user/:user_id` | Delete account |
-
-### Accounts
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/accounts` | Link a financial account |
-| `DELETE` | `/accounts` | Remove an account |
-
-### Transactions
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/transactions` | List all transactions (authenticated user) |
+| `GET` | `/transactions` | List all transactions |
 | `POST` | `/transactions` | Create a transaction |
-| `PATCH` | `/transactions/:id` | Update category or tags on a transaction |
+| `PATCH` | `/transactions/:id` | Update category or tags |
 | `DELETE` | `/transactions/:id` | Delete a transaction |
 
-### Tags
+### Tags _(planned)_
 | Method | Path | Description |
 |---|---|---|
 | `GET` | `/tags` | List all tags |
@@ -154,7 +152,10 @@ All endpoints (except `POST /user` and auth) require a `Bearer` token in the `Au
 ## Database Schema
 
 ```sql
-users              (id, name, email, password_hash, created_at)
+users              (id, first_name, last_name, email, password_hash,
+                    goals, income_amount, income_frequency,
+                    budget_needs, budget_wants, budget_savings,
+                    onboarding_completed_at, created_at)
 accounts           (id, user_id, created_at)
 transactions       (id, account_id, user_id, name, amount, date, category, created_at)
 tags               (id, user_id, name)
@@ -190,8 +191,9 @@ pebble/
 
 ### Prerequisites
 - Node.js 20+
-- Rust (stable toolchain)
-- PostgreSQL 15+
+- Rust (stable) — https://rust-lang.org/tools/install/
+- Podman — https://podman.io/docs/installation
+- PostgreSQL 16 (started via the provided script)
 
 ### Frontend
 
@@ -206,16 +208,13 @@ npm run dev
 
 ```bash
 cd backend
+bash scripts/start_db.sh   # starts a postgres:16 container on port 5432
+cp .env.example .env       # then set JWT_SECRET to a real random string
 cargo run
 # → http://localhost:3000
 ```
 
-Create a `.env` in `backend/`:
-
-```env
-DATABASE_URL=postgres://user:password@localhost/pebble
-JWT_SECRET=your_secret_here
-```
+See [`backend/README.md`](./backend/README.md) for full setup details and curl examples.
 
 ---
 
