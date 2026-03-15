@@ -1,0 +1,15 @@
+{
+  "name": "pebble",
+  "version": "1.0.0",
+  "description": "> _Drop a pebble. Watch your savings ripple._",
+  "scripts": {
+    "dev": "concurrently --names \"API,FE,READY\" --prefix-colors \"cyan,green,yellow\" \"bash backend/scripts/start_db.sh && cd backend && cargo run\" \"cd frontend && npm run dev -- --open\" \"wait-on tcp:localhost:3000 tcp:localhost:5173 && node scripts/dev-ready.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "wait-on": "^9.0.4"
+  }
+}
