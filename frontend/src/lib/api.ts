@@ -27,3 +27,8 @@ api.interceptors.response.use(
 );
 
 export default api;
+
+// Extracts a human-readable error message from an Axios error response.
+// Falls back to the provided fallback string if no server message is found.
+export const extractApiError = (err: unknown, fallback: string): string =>
+  (err as { response?: { data?: { error?: string } } })?.response?.data?.error ?? fallback;
