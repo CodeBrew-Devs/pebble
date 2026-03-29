@@ -74,17 +74,18 @@
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--color-stone-200);
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+  padding: 0.5rem 0.4rem calc(0.5rem + env(safe-area-inset-bottom));
 }
 
 .navItem {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 3px;
-  padding: 0.4rem 0.8rem;
+  gap: 1.5px;
+  padding: 0.6rem 0.8rem 0.4rem;
   border-radius: var(--radius-sm);
   color: var(--color-stone-500);
   font-size: 0.7rem;
@@ -93,17 +94,9 @@
   transition: color var(--motion-fast);
 }
 
-.navIcon {
-  font-size: 1.3rem;
-  transition: transform var(--motion-fast);
-}
-
 .navItemActive {
+  background: var(--color-sage-light);
   color: var(--color-sage-dark);
-}
-
-.navItemActive .navIcon {
-  transform: scale(1.1);
 }
 
 /* ── Desktop breakpoint ── */
