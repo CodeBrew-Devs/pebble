@@ -71,6 +71,14 @@ export interface OnboardingState {
   budgetSplit: BudgetSplit;
 }
 
+export interface BudgetSummary {
+  incomeAmount: number;
+  incomeFrequency: IncomeFrequency;
+  budgetNeeds: number;
+  budgetWants: number;
+  budgetSavings: number;
+}
+
 // ── API Response Shapes ─────────────────────────────────
 
 export interface ApiResponse<T> {
