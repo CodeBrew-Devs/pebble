@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import type { Goal, BudgetSummary } from '../../types';
 import styles from './Dashboard.module.css';
+
 
 // Mock data — replace with TanStack Query hooks once API is ready
 const GOALS: Goal[] = [
@@ -57,6 +59,12 @@ export function Dashboard() {
   const savingsAmount = BUDGET.incomeAmount * (BUDGET.budgetSavings / 100);
 
 
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setAnimated(true), 50); //call the setter after 50ms
+  }, [])
+
   return (
     <div className={styles.page}>
       {/* Header */}
@@ -85,22 +93,23 @@ export function Dashboard() {
       <div className={styles.card}>
         <div className={styles.splitHeader}>
           <span className={styles.splitTitle}>Monthly Budget Split</span>
-          <span className={styles.splitTotal}>$5,200 / mo</span>
+          <span className={styles.splitTotal}>${BUDGET.incomeAmount.toLocaleString()} / mo</span>
         </div>
         <div className={styles.splitBar}>
-          <div className={styles.splitNeeds} style={{ width: '50%' }} />
-          <div className={styles.splitWants} style={{ width: '30%' }} />
-          <div className={styles.splitSavings} style={{ width: '20%' }} />
+          <div className={styles.splitNeeds} style={{ width: `${BUDGET.budgetNeeds}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
+          <div className={styles.splitWants} style={{ width: `${BUDGET.budgetWants}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
+          <div className={styles.splitSavings} style={{ width: `${BUDGET.budgetSavings}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
+
         </div>
         <div className={styles.splitLegend}>
           {[
-            { color: 'var(--color-needs)', val: '$2,600', label: 'Needs · 50%' },
-            { color: 'var(--color-wants)', val: '$1,560', label: 'Wants · 30%' },
-            { color: 'var(--color-savings)', val: '$1,040', label: 'Savings · 20%' },
+            { color: 'var(--color-needs)', val: needsAmount, label: `Needs · ${BUDGET.budgetNeeds}%` },
+            { color: 'var(--color-wants)', val: wantsAmount, label: `Wants · ${BUDGET.budgetWants}%` },
+            { color: 'var(--color-savings)', val: savingsAmount, label: `Savings · ${BUDGET.budgetSavings}%` },
           ].map(({ color, val, label }) => (
             <div key={label} className={styles.legendItem}>
               <div className={styles.legendDot} style={{ background: color }} />
-              <strong className={styles.legendVal}>{val}</strong>
+              <strong className={styles.legendVal}>${val.toLocaleString()}</strong>
               <span className={styles.legendLabel}>{label}</span>
             </div>
           ))}
