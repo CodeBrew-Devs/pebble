@@ -7,8 +7,8 @@ import styles from './Dashboard.module.css';
 // Mock data — replace with TanStack Query hooks once API is ready
 const GOALS: Goal[] = [
   { id: '1', label: 'Emergency Fund', icon: '🛡️', current: 3240, target: 6000, color: 'linear-gradient(135deg,#059669,#34d399)' },
-  { id: '2', label: 'Vacation', icon: '✈️', current: 890, target: 2500, color: 'linear-gradient(135deg,#7c3aed,#a78bfa)' },
-  { id: '3', label: 'Investing', icon: '📈', current: 1150, target: 5000, color: 'linear-gradient(135deg,#0ea5e9,#38bdf8)' },
+  { id: '2', label: 'Vacation',        icon: '✈️', current: 890,  target: 2500, color: 'linear-gradient(135deg,#7c3aed,#a78bfa)' },
+  { id: '3', label: 'Investing',       icon: '📈', current: 1150, target: 5000, color: 'linear-gradient(135deg,#0ea5e9,#38bdf8)' },
 ];
 
 const NEEDS = [
@@ -33,8 +33,21 @@ const BUDGET: BudgetSummary = {
   budgetSavings: 20,
 };
 
+function getMotivation(pct: number): string {
+  if (pct >= 100) return 'Goal reached! 🎉';
+  if (pct >= 75) return 'Almost there!';
+  if (pct >= 50) return 'Over halfway there!';
+  if (pct >= 25) return 'Keep it up!';
+  return 'Great start!';
+}
 
 function GoalProgressCard({ goal }: { goal: Goal }) {
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(()=>{
+    setTimeout(() => setAnimated(true), 50);
+  },[])
+
   const pct = Math.round((goal.current / goal.target) * 100);
   return (
     <div className={styles.goalCard} style={{ background: goal.color }}>
@@ -43,9 +56,9 @@ function GoalProgressCard({ goal }: { goal: Goal }) {
       <span className={styles.goalAmount}>${goal.current.toLocaleString()}</span>
       <span className={styles.goalTarget}>of ${goal.target.toLocaleString()} goal</span>
       <div className={styles.goalBar}>
-        <div className={styles.goalFill} style={{ width: `${pct}%` }} />
+        <div className={styles.goalFill} style={{ width: `${pct}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
       </div>
-      <span className={styles.goalPct}>{pct}% — keep going!</span>
+      <span className={styles.goalPct}>{pct}% — {getMotivation(pct)}</span>
     </div>
   );
 }
@@ -99,7 +112,6 @@ export function Dashboard() {
           <div className={styles.splitNeeds} style={{ width: `${BUDGET.budgetNeeds}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
           <div className={styles.splitWants} style={{ width: `${BUDGET.budgetWants}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
           <div className={styles.splitSavings} style={{ width: `${BUDGET.budgetSavings}%`, transform: animated ? 'scaleX(1)' : 'scaleX(0)' }} />
-
         </div>
         <div className={styles.splitLegend}>
           {[
